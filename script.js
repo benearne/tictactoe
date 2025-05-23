@@ -2,6 +2,9 @@ function Game() {
     //create array board, empty items
     const board = Array(9).fill(null)
 
+    // display in html
+    htmlFields = document.getElementsByClassName("field");
+
     let winner;
     const winningCombinations = [
         [0, 1, 2], [3, 4, 5], [6, 7, 8],    // rows
@@ -25,12 +28,15 @@ function Game() {
     function makeMove(i) {
         // check board at index isn't free or winner already clear
         if (board[i] !== null || winner) {
-            console.log("field already taken");
+            alert("field already taken");
             return;
         };
 
         // update board with players sign
         board[i] = currentPlayer.sign;
+
+        // update display
+        display();
 
         // 	increment turns of currentPlayer;
         currentPlayer.incrementTurns()
@@ -39,6 +45,7 @@ function Game() {
         // check for winner and if console.log, return
         if (checkWin()) {
             console.log(`winner is: ${currentPlayer.name}`);
+            reset();
             return;
         }
 
@@ -75,11 +82,18 @@ function Game() {
 
     function reset() {
         board.fill(null);
+        display();
         winner = null;
         player1.turns = 0;
         player2.turns = 0;
         currentPlayer = player1;
         console.log("Game reset");
+    }
+
+    function display() {
+        for (let field of htmlFields) {
+            field.textContent = board[field.id];
+        }
     }
 
     return {
@@ -92,4 +106,11 @@ function Game() {
 
 }
 
+allButtons = document.getElementsByClassName("field");
 const game = Game();
+
+for (let button of allButtons) {
+    button.addEventListener("click", function(event) {
+        game.makeMove(parseInt(event.target.id));
+    })
+}
