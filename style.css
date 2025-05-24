@@ -5,28 +5,150 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.board {
-    width: 600px;
-    height: 600px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap');
+
+body {
+    font-family: 'Rubik', sans-serif;
 }
 
-.field {
-    width: 200px;
-    height: 200px;
-    background-color: aquamarine;
-    border: 2px solid red;
-    transition: 0.4s transform, 0.4s background-color;
-    text-align: center;
-    align-content: center;
-    font-size: 6rem;
+body {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+h1 {
+    margin-top: 75px;
+    margin-bottom: 30px;
+}
+
+.form, 
+.middle,
+.playerSide {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f4;
+}
+
+.form, 
+.playerSide {
+    justify-content: center;
+}
+
+.middle {
+    justify-content: start;
+}
+
+.playerSide {
+    display: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+    flex: 1;
+}
+
+.left, .right {
+    flex: 1;
+}
+
+label {
+    font-size: 1.3rem;
     font-weight: bold;
 }
 
-.field:hover {
-    transform: scale(1.04);
-    background-color: rgb(108, 218, 181);
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+}
+
+.announce, 
+#nametag1, #nametag2,
+input {
+    width: 300px;
+    height: 60px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    color: black;
+    background-color: white;
+    border: 2px solid rgb(169, 169, 169);
+    border-radius: 10px;
+    text-align: center;
+    align-content: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+input {
+    width: 200px;
+    margin-bottom: 0px;
+}
+
+.board {
+    width: 500px;
+    height: 450px;
+    margin: auto;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 8px;
+}
+
+.field {
+    width: 150px;
+    height: 150px;
+    color: white;
+    background-color: white;
+    border: 2px solid rgb(81, 81, 81);
+    border-radius: 10px;
+    box-shadow: 8px 5px 5px rgb(159, 159, 159);
+    transition: 0.4s transform, 0.4s background-color;
+    text-align: center;
+    align-content: center;
+    font-size: 7rem;
+    font-weight: bold;
+}
+
+.field:hover,
+button:hover {
+    transform: scale(1.05);
     cursor: pointer;
+}
+
+.red, #nametag2 {
+    background-color: rgb(253, 107, 107);
+    border: 2px solid rgb(82, 39, 39);
+    color: white;
+}
+
+.blue, #nametag1 {
+    background-color: rgb(118, 123, 248);
+    border: 2px solid rgb(34, 33, 69);
+    color: white;
+}
+
+#start, #restart, .save {
+    width: 150px;
+    height: 60px;
+    margin-top: 30px;
+    color: black;
+    background-color: white;
+    border: 2px solid rgb(81, 81, 81);
+    border-radius: 10px;
+    box-shadow: 8px 5px 5px rgb(159, 159, 159);
+    transition: 0.4s transform, 0.4s background-color;
+    text-align: center;
+    align-content: center;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+#start {
+    margin-bottom: 50px;
 }

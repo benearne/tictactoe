@@ -3,7 +3,16 @@ function Game() {
     const board = Array(9).fill(null)
 
     // display in html
-    htmlFields = document.getElementsByClassName("field");
+    const htmlFields = document.getElementsByClassName("field");
+    const form1 = document.getElementById("form1");
+    const idPlayer1 = document.getElementById("idPlayer1");
+    const nametagPlayer1 = document.getElementById("nametag1");
+    const form2 = document.getElementById("form2");
+    const idPlayer2 = document.getElementById("idPlayer2");
+    const nametagPlayer2 = document.getElementById("nametag2");
+    const htmlAnnounce = document.getElementById("announce");
+    const htmlBoard = document.getElementById("board");
+    const startBttn = document.getElementById("start");
 
     let winner;
     const winningCombinations = [
@@ -21,14 +30,57 @@ function Game() {
         }
     }
 
-    const player1 = new Player("Michael", "X");
-    const player2 = new Player("Susan", "O");
-    let currentPlayer = player1;
+    let player1, player2;
+    let currentPlayer;
+
+    form1.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const name = document.getElementById("namePlayer1").value;
+        player1 = new Player(name, "X");
+        
+        form1.style.display = "none";
+        
+        idPlayer1.style.display = "flex";
+        nametagPlayer1.textContent = player1.name;
+        checkStartReady();
+    })
+
+    form2.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const name = document.getElementById("namePlayer2").value;
+        player2 = new Player(name, "O");
+        
+        form2.style.display = "none";
+        
+        idPlayer2.style.display = "flex";
+        nametagPlayer2.textContent = player2.name;
+        checkStartReady();
+    })
+
+    function checkStartReady () {
+        if (player1 && player2) {
+        startBttn.style.display = "block";
+        htmlAnnounce.textContent = `Ready to start the game!`;
+    }
+    }
+
+    startBttn.addEventListener("click", function () {
+        currentPlayer = player1;
+        board.fill(null);
+        htmlBoard.style.display = "grid";
+        display();
+        winner = null;
+        htmlAnnounce.textContent = `${currentPlayer.name} starts the game`;
+    });
 
     function makeMove(i) {
+        // check for start button
+        if (startBttn.textContent === "Start Game") {
+            startBttn.textContent = "Restart";
+        }
         // check board at index isn't free or winner already clear
         if (board[i] !== null || winner) {
-            alert("field already taken");
+            htmlAnnounce.textContent = `field already taken, ${currentPlayer.name}, choose other field!`;
             return;
         };
 
@@ -44,8 +96,9 @@ function Game() {
 
         // check for winner and if console.log, return
         if (checkWin()) {
-            console.log(`winner is: ${currentPlayer.name}`);
-            reset();
+            htmlAnnounce.textContent = `${currentPlayer.name} is the winner!!`;
+            startBttn.addEventListener("click", () => reset());
+            startBttn.textContent = "Start new Game"
             return;
         }
 
@@ -54,8 +107,6 @@ function Game() {
             console.log("Game over, it's a tie");
             return
         }
-
-        console.log(board);
 
         // change to the other player
         switchPlayer()
@@ -70,6 +121,7 @@ function Game() {
                 board[a] === board[c]
             ) {
                 winner = currentPlayer;
+                display()
                 return true;
             }
             return false;
@@ -78,6 +130,7 @@ function Game() {
 
     function switchPlayer() {
         currentPlayer = currentPlayer === player1 ? player2 : player1;
+        htmlAnnounce.textContent = `It's your turn, ${currentPlayer.name}`
     }
 
     function reset() {
@@ -93,6 +146,14 @@ function Game() {
     function display() {
         for (let field of htmlFields) {
             field.textContent = board[field.id];
+
+            field.className = "field"; // Reset
+
+            if (board[field.id] === "X") {
+                field.classList.add("blue"); 
+            } else if (board[field.id] === "O") {
+                field.classList.add("red"); 
+            }
         }
     }
 
@@ -106,7 +167,7 @@ function Game() {
 
 }
 
-allButtons = document.getElementsByClassName("field");
+allButtons = document.querySelectorAll(".field");
 const game = Game();
 
 for (let button of allButtons) {

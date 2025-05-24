@@ -7,17 +7,47 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="board" id="board">
-        <button class="field" id="0">O</button>
-        <button class="field" id="1"></button>
-        <button class="field" id="2">X</button>
-        <button class="field" id="3"></button>
-        <button class="field" id="4"></button>
-        <button class="field" id="5"></button>
-        <button class="field" id="6"></button>
-        <button class="field" id="7"></button>
-        <button class="field" id="8"></button>
+    <div class="left">
+        <div class="playerSide" id="idPlayer1">
+            <div class="blue" id="nametag1"></div>
+        </div>
+        <form action="" class="form" id="form1">
+            <label for="namePlayer1">Player 1</label>
+            <input type="text" id="namePlayer1" placeholder="enter your Name">
+            <button type="submit" class="save player2" id="savePlayer1">Save name</button>
+        </form>
     </div>
+
+    <div class="middle">
+        <div class="header">
+            <h1>TIC TAC TOE</h1>
+            <div class="announce" id="announce">Enter your names, players!</div>
+        </div>
+        <div class="board" id="board" style="display: none;">
+            <button class="field" id="0"></button>
+            <button class="field" id="1"></button>
+            <button class="field" id="2"></button>
+            <button class="field" id="3"></button>
+            <button class="field" id="4"></button>
+            <button class="field" id="5"></button>
+            <button class="field" id="6"></button>
+            <button class="field" id="7"></button>
+            <button class="field" id="8"></button>
+        </div>
+        <button id="start" style="display: none;">Start Game</button>
+    </div>
+
+    <div class="right">
+        <div class="playerSide" id="idPlayer2">
+            <div class="red" id="nametag2"></div>
+        </div>
+        <form action="" class="form" id="form2">
+            <label for="namePlayer2">Player 2</label>
+            <input type="text" id="namePlayer2" placeholder="enter your Name">
+            <button type="submit" class="save player1" id="savePlayer2">Save name</button>
+        </form>
+    </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
